@@ -9,4 +9,5 @@
 	{!! link_to_route('practica4', $title='4. Grupos de rutas - saludo noche') !!} </br>
 	<a href="{{ route('practica5') }}">5. Hola desde el controlador</a> </br>
 	<a href="{{ route('practica6', ['nombre'=>'Ana', 'edad'=>45]) }}">6. Paso de parametros</a> </br>
+	
 @endsection
