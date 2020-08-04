@@ -55,9 +55,11 @@ Route::get('/prueba/blade', 'PruebaController@bladeAction')->name('practica9');
 
 // RUTAS SISTEMA ADMINISTRATIVO
 Route::group(['prefix'=>'admin'], function(){
+	// PAGINA INICIAL
 	Route::get('/home', 'admin\HomeController@index')->name('admin_home');
+	// MODULO DE USUARIOS (adicionar, editar, listar, eliminar,..)
+	Route::resource('user', 'admin\UserController');
 });
-
 
 
 

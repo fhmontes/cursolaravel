@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password', 'type',
     ];
 
     /**
@@ -36,4 +36,12 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Mapear relacion 1 a N
+    // Un usuario registra varias peliculas
+    public function peliculas(){
+        // Retornar tipo de relacion
+        return $this->hasMany('App\Pelicula');
+    }
+
 }
