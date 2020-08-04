@@ -5,6 +5,9 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
+// Importar clases del modelo
+use App\User;
+
 class UserController extends Controller
 {
     /**
@@ -14,7 +17,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        // Listado de registros
     }
 
     /**
@@ -24,7 +27,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        // Renderizar formulario para nuevo registro
+        return view('admin.user.create');
     }
 
     /**
@@ -35,7 +39,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Guardar datos del formulario
+        $user = new User($request->all());
+        // var_dump($user);
+        dd($user);
     }
 
     /**
