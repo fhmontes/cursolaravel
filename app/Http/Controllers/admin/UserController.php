@@ -18,6 +18,12 @@ class UserController extends Controller
     public function index()
     {
         // Listado de registros
+        // $users = User::all();                           // Obtener todos los registros
+        // $users = User::orderBy('id', 'DESC')->get();    // Obtener todos los registros ordenados
+        $users = User::orderBy('id', 'DESC')->paginate(10); // Obtener los registros ordenados y paginados
+        // Enviar listado de registros a una vista
+        $data['users'] = $users;
+        return view('admin.user.index', $data);
     }
 
     /**
@@ -40,9 +46,14 @@ class UserController extends Controller
     public function store(Request $request)
     {
         // Guardar datos del formulario
+        // 1. Obtener todos los datos del formulario
         $user = new User($request->all());
-        // var_dump($user);
-        dd($user);
+        // 2. Cifrar password
+        $user->password = bcrypt($user->password);
+        // 3. Guardar en la base de datos
+        $user->save();
+        // 4. Mostrar mensaje
+        return 'Usuario registrado correctamente';
     }
 
     /**
