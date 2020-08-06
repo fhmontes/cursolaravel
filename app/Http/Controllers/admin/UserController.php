@@ -53,7 +53,10 @@ class UserController extends Controller
         // 3. Guardar en la base de datos
         $user->save();
         // 4. Mostrar mensaje
-        return 'Usuario registrado correctamente';
+        //return 'Usuario registrado correctamente';
+        flash('Usuario registrado correctamente')->success();
+        // 5. Redireccionar a listado de usuarios
+        return redirect()->route('user.index');
     }
 
     /**
@@ -64,7 +67,7 @@ class UserController extends Controller
      */
     public function show($id)
     {
-        //
+        // Mostrar informacion detallada
     }
 
     /**
@@ -75,7 +78,11 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        // Renderizar formulario para editar
+        $user = User::find($id);
+        // dd($user);
+        $data['user'] = $user;
+        return view('admin.user.edit', $data);
     }
 
     /**
@@ -87,7 +94,8 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        // Registrar cambios en la base de datos
+        dd($request->all());
     }
 
     /**
@@ -98,6 +106,19 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        // Eliminar un registro
+        // 1. Buscar registro a eliminar
+        $user=User::find($id);
+        if($user){
+            // 2. Eliminar registro
+            $user->delete();
+            // 3. Preparar mensaje
+            flash('Se ha eliminado '.$user->name.' correctamente.')->success();
+        }else{
+            // Preparar mensaje de error
+            flash('Error al eliminar, no existe el id '.$id.'.')->error();
+        }
+        // 4. Redireccionar
+        return redirect()->route('user.index');
     }
 }

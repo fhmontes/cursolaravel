@@ -59,6 +59,7 @@ Route::group(['prefix'=>'admin'], function(){
 	Route::get('/home', 'admin\HomeController@index')->name('admin_home');
 	// MODULO DE USUARIOS (adicionar, editar, listar, eliminar,..)
 	Route::resource('user', 'admin\UserController');
+	Route::get('user/{id}/destroy', 'admin\UserController@destroy')->name('user.destroy');
 });
 
 
