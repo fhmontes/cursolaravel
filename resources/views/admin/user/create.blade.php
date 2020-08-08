@@ -3,6 +3,7 @@
 @section('title','NUEVO USUARIO')
 
 @section('content')
+	@include('layouts.error')
 	{!! Form::open(['route'=>'user.store']) !!}
 		<div class="form-group">
 			{!! Form::label('name', 'Nombre:') !!}

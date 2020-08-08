@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 // Importar clases del modelo
 use App\User;
+// Importar clase request de validacion
+use App\Http\Requests\UserCreateRequest;
 
 class UserController extends Controller
 {
@@ -43,7 +45,8 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    // public function store(Request $request)
+    public function store(UserCreateRequest $request)
     {
         // Guardar datos del formulario
         // 1. Obtener todos los datos del formulario
@@ -95,7 +98,19 @@ class UserController extends Controller
     public function update(Request $request, $id)
     {
         // Registrar cambios en la base de datos
-        dd($request->all());
+        // dd($request->all());
+        // 1. Buscar registro a modificar
+        $user = User::find($id);
+        // 2. Editar valores
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->type = $request->type;
+        // 3. Guardar cambios
+        $user->save();
+        // 4. Preparar mensaje
+        flash('Usuario editado correctamente')->success();
+        // 5. Redireccionar
+        return redirect()->route('user.index');
     }
 
     /**
