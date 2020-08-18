@@ -3,6 +3,19 @@
 @section('title','MENU PRINCIPAL')
 
 @section('content')
+	<h3>Bienvenido {{ Auth::user()->name }}</h3>
+
+	<a class="dropdown-item" href="{{ route('logout') }}"
+            onclick="event.preventDefault();
+           document.getElementById('logout-form').submit();">
+        Cerrar Sesion
+    </a>
+
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+    <br/>
+
 	<a href="{{ url('/hola/ruta') }}">1. Hola Routes.php</a> </br>
 	<a href="{{ url('/saludo/dia') }}">2. Grupos de rutas - saludo dia</a> </br>
 	<a href="{{ route('practica3') }}">3. Grupos de rutas - saludo tarde</a> </br>

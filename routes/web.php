@@ -54,13 +54,26 @@ Route::get('/prueba/datos/{nombre}/{edad}', 'PruebaController@datosAction')->nam
 Route::get('/prueba/blade', 'PruebaController@bladeAction')->name('practica9');
 
 // RUTAS SISTEMA ADMINISTRATIVO
-Route::group(['prefix'=>'admin'], function(){
+Route::group(['prefix'=>'admin', 'middleware' => 'auth'], function(){
 	// PAGINA INICIAL
 	Route::get('/home', 'admin\HomeController@index')->name('admin_home');
 	// MODULO DE USUARIOS (adicionar, editar, listar, eliminar,..)
 	Route::resource('user', 'admin\UserController');
 	Route::get('user/{id}/destroy', 'admin\UserController@destroy')->name('user.destroy');
+	// MODULO DE GENERO (adicionar, editar, listar, eliminar,..)
+	Route::resource('genero', 'admin\GeneroController');
+	Route::get('genero/{id}/destroy', 'admin\GeneroController@destroy')->name('genero.destroy');
+	// MODULO DE DIRECTOR (adicionar, editar, listar, eliminar,..)
+	Route::resource('director', 'admin\DirectorController');
+	Route::get('director/{id}/destroy', 'admin\DirectorController@destroy')->name('director.destroy');
+	// MODULO DE PELICULA (adicionar, editar, listar, eliminar,..)
+	Route::resource('pelicula', 'admin\PeliculaController');
+	Route::get('pelicula/{id}/destroy', 'admin\PeliculaController@destroy')->name('pelicula.destroy');
 });
 
 
 
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
